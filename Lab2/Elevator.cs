@@ -1,15 +1,13 @@
-using Lab2;
+namespace Lab2;
 
-class Elevator : IElevatable {
+class Elevator(int floor) : IElevatable {
 
-    private int currentFloor;
-    private List<int> neededFloors = new List<int>();
+    private int currentFloor = floor;
+    private HashSet<int> neededFloors = [];
     private bool isMoving = false;
     private bool isOpened = false;
-
-    public Elevator() {
-
-    }
+    private bool isWorking = true;
+    private int actionsCount = 0;
 
     public void GoDown() {
         try {
@@ -23,15 +21,19 @@ class Elevator : IElevatable {
             }
 
         }
-        catch (Exception e) {
+        catch (Exception)
+        {
             Console.WriteLine("Лифт не может спуститься ниже, он на нижнем этаже");
 
         }
 
+        actionsCount +=1;
+
     }
 
     public void OpenDoors() {
-        try {
+        try
+        {
 
             if (isMoving) {
                 throw new Exception();
@@ -42,7 +44,8 @@ class Elevator : IElevatable {
             }
 
         }
-        catch (Exception e) {
+        catch (Exception)
+        {
             Console.WriteLine("Лифт не может открыть двери в движении");
 
         }
@@ -66,37 +69,100 @@ class Elevator : IElevatable {
             }
 
         }
-        catch (Exception e) {
+        catch (Exception) {
             Console.WriteLine("Лифт не может подняться выше, он на верхнем этаже");
 
         }
 
+        actionsCount +=1;
+
     }
 
-    public bool getIsGoing() {
+    public bool GetIsGoing() {
         return neededFloors.Count != 0;
     }
 
-    public void takePassengers(int targetFloor) {
-        neededFloors.Add(targetFloor);
+    public void AddFloor(int floor) {
+        if (floor != currentFloor) {
+            neededFloors.Add(floor);
+        }
     }
 
-    public void dropPassengers(int targetFloor) {
-        neededFloors.Remove(targetFloor);
+    public void RemoveFloor(int floor) {
+        neededFloors.Remove(floor);
     }
 
-    public List<int> getFloors() {
+    public HashSet<int> GetFloors() {
         return neededFloors;
     }
 
-    public int getCurrentFloor() {
+    public int GetCurrentFloor() {
         return currentFloor;
     } 
-    public bool isInRange(int targetFloor) {
 
-        bool isInRangeUp = targetFloor > currentFloor && targetFloor <= neededFloors.Max();
-        bool isInRangeDown = targetFloor < currentFloor && targetFloor >= neededFloors.Min();
+    public int GetActionsCount() {
+        return actionsCount;
+    } 
+    public bool IsInRange(int floor) {
+
+        bool isInRangeUp = floor >= currentFloor && floor <= neededFloors.Max();
+        bool isInRangeDown = floor <= currentFloor && floor >= neededFloors.Min();
         
         return isInRangeUp || isInRangeDown;
     }
-}
+
+    public bool IsPickUp(int callFloor, int targetFloor) {
+
+        if (GetIsGoing()) {
+
+            if (IsInRange(callFloor)) {
+                
+                if (IsInRange(targetFloor)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    public void Start(int maxFloor) {
+
+        while (isWorking) {
+
+            if (isOpened) {
+
+                if (neededFloors.Contains(currentFloor)) {
+
+                    RemoveFloor(currentFloor);
+                }
+                else {
+
+                    AddFloor(currentFloor);
+                }
+
+                CloseDoors();
+                isMoving = true;
+            }
+
+            else {
+                if (neededFloors.Contains(currentFloor)) {
+
+                    OpenDoors();
+                    isMoving = false;
+                }
+                else {
+                    if (neededFloors.Min() > currentFloor) {
+
+                        GoUp(maxFloor);
+                    }
+                    else if (neededFloors.Max() < currentFloor) {
+
+                        GoDown();
+                    }
+                }
+            }
+        }
+    }
+} 
