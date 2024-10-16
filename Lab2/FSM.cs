@@ -75,7 +75,6 @@ class FSM {
         foreach ((int, int) floors in calls) {
 
             (int callFloor, int targetFloor) = floors;
-
             
 
             bool callProceed = ChangeState(callFloor, targetFloor);
@@ -97,6 +96,14 @@ class FSM {
                 }
                 else {delayed.Dequeue();}
             }
+
+            while (delayed.Count != 0) {
+                elevator1.OneStep(maxFloor, 1);
+                elevator2.OneStep(maxFloor, 2);
+            }
+
+            elevator1.OneStep(maxFloor, 1);
+            elevator2.OneStep(maxFloor, 2);
 
         }
 

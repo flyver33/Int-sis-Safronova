@@ -127,42 +127,42 @@ class Elevator(int floor) : IElevatable {
         return true;
     }
 
-    public void Start(int maxFloor) {
+    public void OneStep(int maxFloor, int number) {
 
-        while (isWorking) {
+        if (isOpened) {
 
-            if (isOpened) {
+            if (neededFloors.Contains(currentFloor)) {
 
-                if (neededFloors.Contains(currentFloor)) {
-
-                    RemoveFloor(currentFloor);
-                }
-                else {
-
-                    AddFloor(currentFloor);
-                }
-
-                CloseDoors();
-                isMoving = true;
+                RemoveFloor(currentFloor);
             }
-
             else {
-                if (neededFloors.Contains(currentFloor)) {
 
-                    OpenDoors();
-                    isMoving = false;
+                AddFloor(currentFloor);
+            }
+
+            CloseDoors();
+            isMoving = true;
+        }
+
+        else {
+            if (neededFloors.Contains(currentFloor)) {
+
+                OpenDoors();
+                isMoving = false;
+                Console.WriteLine("Лифт " + number + " прибыл на этаж " + currentFloor);
+            }
+            else {
+                if (neededFloors.Min() > currentFloor) {
+
+                    GoUp(maxFloor);
+                    Console.WriteLine("Лифт " + number + " проехал на этаж " + currentFloor);
                 }
-                else {
-                    if (neededFloors.Min() > currentFloor) {
+                else if (neededFloors.Max() < currentFloor) {
 
-                        GoUp(maxFloor);
-                    }
-                    else if (neededFloors.Max() < currentFloor) {
-
-                        GoDown();
-                    }
+                    GoDown();
+                    Console.WriteLine("Лифт " + number + " проехал на этаж " + currentFloor);
                 }
             }
-        }
+    }
     }
 } 
