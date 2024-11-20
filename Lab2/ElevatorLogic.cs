@@ -74,4 +74,8 @@ class ElevatorLogic() : ILogicable
     {
         ssupdn(operatedCalls, takenCalls, awaitingCalls, elevator, floorsButtons);
     }
+
+    public void m(List<(int, int)> operatedCalls, List<(int, int)> takenCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons) {
+        ssupdn(operatedCalls, takenCalls, awaitingCalls, elevator, floorsButtons);
+    }
 }

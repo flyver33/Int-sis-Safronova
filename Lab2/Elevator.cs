@@ -71,21 +71,40 @@ class Elevator(int floor, string id) : IElevatable {
 
     public string GetState() {
         return state;
-    } 
+    }
 
-    public string GetClosestFloor() {
-
+    private Dictionary<string, HashSet<int>> GetSortedFloors() {
         Dictionary<string, HashSet<int>> sortedFloors = new();
 
         sortedFloors["up"] = neededFloors.Where(x => x >= currentFloor).ToHashSet<int>();
         sortedFloors["dn"] = neededFloors.Where(x => x <= currentFloor).ToHashSet<int>();
         sortedFloors["_"] = neededFloors;
 
+        return sortedFloors;
+    }
+
+    public string GetClosestFloor() {
+
+        Dictionary<string, HashSet<int>> sortedFloors = GetSortedFloors();
+
         try {
             return sortedFloors[direction].MinBy(x => Math.Abs((long) x - currentFloor)).ToString();
         }
         catch(Exception) {
             return "_";
+        }
+        
+    }
+
+    public int? GetDistantFloor() {
+
+        Dictionary<string, HashSet<int>> sortedFloors = GetSortedFloors();
+
+        try {
+            return sortedFloors[direction].MaxBy(x => Math.Abs((long) x - currentFloor));
+        }
+        catch(Exception) {
+            return null;
         }
         
     }

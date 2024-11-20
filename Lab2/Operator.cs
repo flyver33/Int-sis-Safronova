@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Lab2;
 
-class Operator {
+class MyOperator {
     
     private List<IElevatable> elevators = [];
     private int maxFloor;
@@ -11,7 +11,7 @@ class Operator {
     private ILogicable logic = new ElevatorLogic();
     
 
-    public Operator(int maxFloor, List<int> currentFloors, Queue<(int, int)> calls, int numElevs) {
+    public MyOperator(int maxFloor, List<int> currentFloors, Queue<(int, int)> calls, int numElevs) {
 
         this.maxFloor = maxFloor;
         this.calls = calls;
@@ -25,14 +25,14 @@ class Operator {
 
     }
 
-    private void AddMaxMinFloorState(int floor, string direction) {
+    private void AddMaxMinFloorState(int floor, int nextFloor, string direction) {
         fSM.Add(floor.ToString(), new Dictionary<string, string>());
         fSM[floor.ToString()].Add("__", floor.ToString() + "m");
-        fSM[floor.ToString()].Add("_" + direction, (floor - 1).ToString() + direction);
+        fSM[floor.ToString()].Add("_" + direction, nextFloor.ToString() + direction);
 
         foreach (string dir in new List<string>(){"_", direction}) {
             for (int fl = 1; fl < floor; fl ++) {
-                fSM[floor.ToString()].Add(fl.ToString() + dir, (floor - 1).ToString() + direction);
+                fSM[floor.ToString()].Add(fl.ToString() + dir, nextFloor.ToString() + direction);
             }
         }
 
@@ -48,12 +48,28 @@ class Operator {
 
             for (int fl = floor + 1; fl < maxFloor; fl ++) {
                 fSM[floor.ToString() + "up"].Add(fl.ToString() + "_", (floor + 1).ToString() + "up");
-                fSM[floor.ToString() + "up"].Add(fl.ToString() + "up", (floor + 1).ToString() + "up" + "s");
+                fSM[floor.ToString() + "up"].Add(fl.ToString() + "up", floor.ToString() + "up" + "s");
             }
         }
 
         foreach (string dir in new List<string>(){"_", "up", "dn"}) {
-                fSM[(maxFloor - 1).ToString() + "up"].Add(maxFloor.ToString() + dir, maxFloor.ToString());
+                fSM[(maxFloor - 1).ToString() + "up"].Add(maxFloor.ToString() + dir, maxFloor.ToString() + "m");
+            }
+
+        for (int floor = 2; floor < maxFloor - 1; floor ++) {
+
+            foreach (string dir in new List<string>(){"_", "up", "dn"}) {
+                fSM[floor.ToString() + "dn"].Add(floor.ToString() + dir, floor.ToString() + "dn" + "s");
+            }
+
+            for (int fl = 1; fl < floor; fl ++) {
+                fSM[floor.ToString() + "dn"].Add(fl.ToString() + "_", (floor - 1).ToString() + "dn");
+                fSM[floor.ToString() + "dn"].Add(fl.ToString() + "dn", floor.ToString() + "dn" + "s");
+            }
+        }
+
+        foreach (string dir in new List<string>(){"_", "up", "dn"}) {
+                fSM[(maxFloor - 1).ToString() + "dn"].Add(maxFloor.ToString() + dir, 1.ToString() + "m");
             }
 
     }
@@ -89,7 +105,7 @@ class Operator {
             }
 
             foreach (string dir in new List<string>(){"_", "up", "dn"}) {
-                for (int fl = 2; fl < floor; fl ++) {
+                for (int fl = floor + 1; fl <= maxFloor; fl ++) {
                     fSM[floor.ToString() + "ss"].Add(fl.ToString() + dir, floor.ToString() + "up");
                 }
             }
@@ -104,8 +120,8 @@ class Operator {
     
 
     private void GenerateFSM() {
-        AddMaxMinFloorState(maxFloor, "dn");
-        AddMaxMinFloorState(1, "up");
+        AddMaxMinFloorState(maxFloor, maxFloor-1, "dn");
+        AddMaxMinFloorState(1, 2, "up");
 
         for (int floor = 2; floor < maxFloor; floor ++) {
             foreach (string dir in new List<string>(){"ss", "up", "dn", "ups", "dns"}) {
@@ -135,11 +151,12 @@ class Operator {
         Dictionary<int, Dictionary<int, string>> directions = new();
 
         for (int floor = 1; floor <= maxFloor; floor ++) {
+            directions.Add(floor, new Dictionary<int, string>());
             for (int fl = 1; fl <= floor; fl ++) {
-                directions[floor][fl] = "dn";
+                directions[floor].Add(fl, "dn");
             }
             for (int fl = floor + 1; fl <= maxFloor; fl ++) {
-                directions[floor][fl] = "up";
+                directions[floor].Add(fl, "up");
             }
         }
 
@@ -168,7 +185,7 @@ class Operator {
 
             foreach (IElevatable elevator in elevators) {
                 string curState = elevator.GetState();
-                typeof(ElevatorLogic).GetMethod(curState)?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+                typeof(ElevatorLogic).GetMethod(curState[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
                 string action = elevator.GetClosestFloor() + floorsButtons[elevator.GetCurrentFloor()];
                 string nextState = fSM[curState][action];
                 elevator.SetState(nextState);

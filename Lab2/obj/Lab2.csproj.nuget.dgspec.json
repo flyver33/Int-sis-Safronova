@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\Int-sis\\Lab2\\Lab2.csproj": {}
+    "c:\\dev\\Int-sis\\Lab2\\Lab2.csproj": {}
   },
   "projects": {
-    "C:\\dev\\Int-sis\\Lab2\\Lab2.csproj": {
+    "c:\\dev\\Int-sis\\Lab2\\Lab2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Int-sis\\Lab2\\Lab2.csproj",
+        "projectUniqueName": "c:\\dev\\Int-sis\\Lab2\\Lab2.csproj",
         "projectName": "Lab2",
-        "projectPath": "C:\\dev\\Int-sis\\Lab2\\Lab2.csproj",
+        "projectPath": "c:\\dev\\Int-sis\\Lab2\\Lab2.csproj",
         "packagesPath": "C:\\Users\\Людмила\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Int-sis\\Lab2\\obj\\",
+        "outputPath": "c:\\dev\\Int-sis\\Lab2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Людмила\\AppData\\Roaming\\NuGet\\NuGet.Config"

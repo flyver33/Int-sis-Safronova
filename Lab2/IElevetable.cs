@@ -13,4 +13,5 @@ public interface IElevatable
     string GetState();
     void SetState(string nextState);
     string GetClosestFloor();
+    int? GetDistantFloor();
 }
