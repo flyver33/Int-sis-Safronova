@@ -189,7 +189,6 @@ class MyOperator {
         while (calls.Count > 0 || operatedCalls.Count > 0 || takenCalls.Count > 0 || awaitingCalls.Count > 0) {
 
             try {
-                int test = calls.Peek().Item1;
                 floorsButtons[calls.Peek().Item1] = directions[calls.Peek().Item1][calls.Peek().Item2];
                 awaitingCalls.Add(calls.Dequeue());
             } catch (InvalidOperationException) {}
@@ -198,9 +197,9 @@ class MyOperator {
 
             foreach (IElevatable elevator in elevators) {
                 string curState = elevator.GetState();
-                typeof(ElevatorLogic).GetMethod(curState[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
                 string action = elevator.GetClosestFloor() + floorsButtons[elevator.GetCurrentFloor()];
                 string nextState = fSM[curState][action];
+                typeof(ElevatorLogic).GetMethod(curState[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
                 elevator.SetState(nextState);
             }
 
