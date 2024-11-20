@@ -51,6 +51,7 @@ class ElevatorLogic() : ILogicable
 
         elevator.OpenDoors();
         int passengersTaken = operatedCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
+        Console.WriteLine("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
         elevator.CloseDoors();
         floorsButtons[elevator.GetCurrentFloor()] = "_";
     }

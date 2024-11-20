@@ -4,7 +4,8 @@ class CallsManagerClosest() : IElevatorsCallsManager
 {
     public void ManageCalls(List<(int, int)> awaitingCalls, List<(int, int)> operatedCalls, List<IElevatable> elevators) {
 
-        List<(int, int)> copyAwaitingCalls = awaitingCalls;
+        (int, int)[] copyAwaitingCalls = new (int, int)[awaitingCalls.Count];
+        awaitingCalls.CopyTo(copyAwaitingCalls);
 
         foreach((int, int) call in copyAwaitingCalls) {
             List<IElevatable> pickableElevators = new();

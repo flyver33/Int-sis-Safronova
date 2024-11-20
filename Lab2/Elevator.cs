@@ -1,12 +1,12 @@
 namespace Lab2;
 
-class Elevator(int floor, string id) : IElevatable {
+class Elevator(int floor, string id, string initState) : IElevatable {
 
     private int currentFloor = floor;
     private HashSet<int> neededFloors = [];
     private int actionsCount = 0;
     private readonly string id = id;
-    private string state = id + "ss";
+    private string state = initState;
     private string direction = "_";
 
     public void GoDown() {
@@ -14,7 +14,7 @@ class Elevator(int floor, string id) : IElevatable {
 
         actionsCount +=1;
 
-        Console.WriteLine("Лифт " + id + " is going down on " + currentFloor.ToString() + " floor");
+        Console.WriteLine("Elevator " + id + " is going down on " + currentFloor.ToString() + " floor");
 
         SetDirDn();
 

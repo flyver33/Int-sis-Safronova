@@ -7,17 +7,29 @@ class MyOperator {
     private List<IElevatable> elevators = [];
     private int maxFloor;
     private Queue<(int, int)> calls;
-    private Dictionary<string, Dictionary<string, string>> fSM = new Dictionary<string, Dictionary<string, string>>();
+    private Dictionary<string, Dictionary<string, string>> fSM = new();
     private ILogicable logic = new ElevatorLogic();
-    
 
+    private Dictionary<int, string> GetInitialState(int maxFloor) {
+        Dictionary<int, string> getter = new();
+        getter.Add(1, 1.ToString() + "m");
+        getter.Add(maxFloor, maxFloor.ToString() + "m");
+        for (int floor = 2; floor < maxFloor; floor ++) {
+            getter.Add(floor, floor.ToString() + "ss");
+        }
+        return getter;
+    }
+    
     public MyOperator(int maxFloor, List<int> currentFloors, Queue<(int, int)> calls, int numElevs) {
 
         this.maxFloor = maxFloor;
         this.calls = calls;
 
+        Dictionary<int, string> getterInitState = GetInitialState(maxFloor);
+        
+
         for (int i = 0; i < numElevs; i++) {
-            elevators.Add(new Elevator(currentFloors[i], (i+1).ToString()));
+            elevators.Add(new Elevator(currentFloors[i], (i+1).ToString(), getterInitState[currentFloors[i]]));
         }
 
         GenerateFSM();
@@ -26,13 +38,13 @@ class MyOperator {
     }
 
     private void AddMaxMinFloorState(int floor, int nextFloor, string direction) {
-        fSM.Add(floor.ToString(), new Dictionary<string, string>());
-        fSM[floor.ToString()].Add("__", floor.ToString() + "m");
-        fSM[floor.ToString()].Add("_" + direction, nextFloor.ToString() + direction);
+        fSM.Add(floor.ToString() + "m", new Dictionary<string, string>());
+        fSM[floor.ToString() + "m"].Add("__", floor.ToString() + "m");
+        fSM[floor.ToString() + "m"].Add("_" + direction, nextFloor.ToString() + direction);
 
         foreach (string dir in new List<string>(){"_", direction}) {
             for (int fl = 1; fl < floor; fl ++) {
-                fSM[floor.ToString()].Add(fl.ToString() + dir, nextFloor.ToString() + direction);
+                fSM[floor.ToString() + "m"].Add(fl.ToString() + dir, nextFloor.ToString() + direction);
             }
         }
 
@@ -177,6 +189,7 @@ class MyOperator {
         while (calls.Count > 0 || operatedCalls.Count > 0 || takenCalls.Count > 0 || awaitingCalls.Count > 0) {
 
             try {
+                int test = calls.Peek().Item1;
                 floorsButtons[calls.Peek().Item1] = directions[calls.Peek().Item1][calls.Peek().Item2];
                 awaitingCalls.Add(calls.Dequeue());
             } catch (InvalidOperationException) {}
