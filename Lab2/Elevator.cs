@@ -1,91 +1,45 @@
 namespace Lab2;
 
-class Elevator(int floor) : IElevatable {
+class Elevator(int floor, string id, string state) : IElevatable {
 
     private int currentFloor = floor;
     private HashSet<int> neededFloors = [];
-    private bool isMoving = false;
-    private bool isOpened = false;
-    private bool isWorking = true;
     private int actionsCount = 0;
+    private string id = id;
+    private string state = state;
 
     public void GoDown() {
-        try {
-
-            if (currentFloor == 1) {
-                throw new Exception();
-            }
-
-            else {
-                currentFloor -= 1;
-            }
-
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Лифт не может спуститься ниже, он на нижнем этаже");
-
-        }
+        currentFloor -= 1;
 
         actionsCount +=1;
+
+        Console.WriteLine("Лифт " + id + " is going down on " + currentFloor.ToString() + " floor");
 
     }
 
     public void OpenDoors() {
-        try
-        {
 
-            if (isMoving) {
-                throw new Exception();
-            }
-
-            else {
-                isOpened = true;
-            }
-
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Лифт не может открыть двери в движении");
-
-        }
+        Console.WriteLine("Elevator " + id + " has opened doors on " + currentFloor.ToString() + " floor");
 
     }
 
     public void CloseDoors() {
-        isOpened = false;
+
+        Console.WriteLine("Elevator " + id + " has closed doors on " + currentFloor.ToString() + " floor");
 
     }
 
-    public void GoUp(int maxFloor) {
-        try {
-
-            if (currentFloor == maxFloor) {
-                throw new Exception();
-            }
-
-            else {
-                currentFloor += 1;
-            }
-
-        }
-        catch (Exception) {
-            Console.WriteLine("Лифт не может подняться выше, он на верхнем этаже");
-
-        }
+    public void GoUp() {
+        currentFloor += 1;
 
         actionsCount +=1;
 
-    }
+        Console.WriteLine("Elevator " + id + " is going up on " + currentFloor.ToString() + " floor");
 
-    public bool GetIsGoing() {
-        return neededFloors.Count != 0;
     }
 
     public void AddFloor(int floor) {
-        if (floor != currentFloor) {
-            neededFloors.Add(floor);
-        }
+        neededFloors.Add(floor);
     }
 
     public void RemoveFloor(int floor) {
@@ -103,66 +57,28 @@ class Elevator(int floor) : IElevatable {
     public int GetActionsCount() {
         return actionsCount;
     } 
-    public bool IsInRange(int floor) {
 
-        bool isInRangeUp = floor >= currentFloor && floor <= neededFloors.Max();
-        bool isInRangeDown = floor <= currentFloor && floor >= neededFloors.Min();
+    public void SetState(string nextState) {
+        state = nextState;
+    } 
+
+    public string GetState() {
+        return state;
+    } 
+
+    public string GetClosestFloor() {
+        try {
+            return neededFloors.MinBy(x => Math.Abs((long) x - currentFloor)).ToString();
+        }
+        catch(Exception) {
+            return "_";
+        }
         
-        return isInRangeUp || isInRangeDown;
     }
 
-    public bool IsPickUp(int callFloor, int targetFloor) {
-
-        if (GetIsGoing()) {
-
-            if (IsInRange(callFloor)) {
-                
-                if (IsInRange(targetFloor)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        return true;
+    public string GetID() {
+        return id;
     }
 
-    public void OneStep(int maxFloor, int number) {
-
-        if (isOpened) {
-
-            if (neededFloors.Contains(currentFloor)) {
-
-                RemoveFloor(currentFloor);
-            }
-            else {
-
-                AddFloor(currentFloor);
-            }
-
-            CloseDoors();
-            isMoving = true;
-        }
-
-        else {
-            if (neededFloors.Contains(currentFloor)) {
-
-                OpenDoors();
-                isMoving = false;
-                Console.WriteLine("Лифт " + number + " прибыл на этаж " + currentFloor);
-            }
-            else {
-                if (neededFloors.Min() > currentFloor) {
-
-                    GoUp(maxFloor);
-                    Console.WriteLine("Лифт " + number + " проехал на этаж " + currentFloor);
-                }
-                else if (neededFloors.Max() < currentFloor) {
-
-                    GoDown();
-                    Console.WriteLine("Лифт " + number + " проехал на этаж " + currentFloor);
-                }
-            }
-    }
-    }
+    
 } 
