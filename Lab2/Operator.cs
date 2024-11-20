@@ -8,8 +8,6 @@ class Operator {
     private int maxFloor;
     private Queue<(int, int)> calls;
     private Dictionary<string, Dictionary<string, string>> fSM = new Dictionary<string, Dictionary<string, string>>();
-    private Func<int, int> plusFloor = floor => floor + 1;
-    private Func<int, int> minusFloor = floor => floor - 1;
     private ILogicable logic = new ElevatorLogic();
     
 
@@ -17,12 +15,9 @@ class Operator {
 
         this.maxFloor = maxFloor;
         this.calls = calls;
-        Dictionary<string, string> initState = InitialStateMap();
-        string initState1 = initState[currentFloors[0].ToString()];
-        string initState2 = initState[currentFloors[1].ToString()];
 
         for (int i = 0; i < numElevs; i++) {
-            elevators.Add(new Elevator(currentFloors[i], (i+1).ToString(), initState1));
+            elevators.Add(new Elevator(currentFloors[i], (i+1).ToString()));
         }
 
         GenerateFSM();
@@ -30,22 +25,10 @@ class Operator {
 
     }
 
-    private Dictionary<string, string> InitialStateMap() {
-        Dictionary<string, string> initState = new Dictionary<string, string>();
-        
-        initState[1.ToString()] = 1.ToString();
-        initState[maxFloor.ToString()] = maxFloor.ToString();
-        for (int i = 2; i < maxFloor; i++) {
-            initState[i.ToString()] = i.ToString() + "ss";
-        }
-
-        return initState;
-    }
-
     private void AddMaxMinFloorState(int floor, string direction) {
         fSM.Add(floor.ToString(), new Dictionary<string, string>());
-        fSM[floor.ToString()].Add("__", floor.ToString());
-        fSM[floor.ToString()].Add("_" + direction, floor.ToString());
+        fSM[floor.ToString()].Add("__", floor.ToString() + "m");
+        fSM[floor.ToString()].Add("_" + direction, (floor - 1).ToString() + direction);
 
         foreach (string dir in new List<string>(){"_", direction}) {
             for (int fl = 1; fl < floor; fl ++) {
@@ -55,24 +38,23 @@ class Operator {
 
     }
 
-    private void AddUpDownState(int dirFloor, string direction, Func<int, int> floorOp) {
+    private void AddUpDownState() {
         
-        for (int floor = 2; floor < dirFloor; floor ++) {
+        for (int floor = 2; floor < maxFloor - 1; floor ++) {
 
-            int minv = Math.Min(dirFloor, floor);
-            int maxv = Math.Max(dirFloor, floor);
-
-            foreach (string dir in new List<string>(){"_", "up", "down"}) {
-                fSM[floor.ToString() + direction].Add(floor.ToString() + dir, floor.ToString() + direction + "s");
-                fSM[floor.ToString() + direction].Add(dirFloor.ToString() + dir, dirFloor.ToString());
+            foreach (string dir in new List<string>(){"_", "up", "dn"}) {
+                fSM[floor.ToString() + "up"].Add(floor.ToString() + dir, floor.ToString() + "up" + "s");
             }
 
-            foreach (string dir in new List<string>(){"_", direction}) {
-                for (int fl = minv + 1; fl < maxv - 1; fl ++) {
-                    fSM[floor.ToString() + direction].Add(fl.ToString() + dir, floorOp(floor).ToString() + direction);
-                }
+            for (int fl = floor + 1; fl < maxFloor; fl ++) {
+                fSM[floor.ToString() + "up"].Add(fl.ToString() + "_", (floor + 1).ToString() + "up");
+                fSM[floor.ToString() + "up"].Add(fl.ToString() + "up", (floor + 1).ToString() + "up" + "s");
             }
         }
+
+        foreach (string dir in new List<string>(){"_", "up", "dn"}) {
+                fSM[(maxFloor - 1).ToString() + "up"].Add(maxFloor.ToString() + dir, maxFloor.ToString());
+            }
 
     }
 
@@ -85,11 +67,11 @@ class Operator {
             
             fSM[floor.ToString() + direction + "s"].Add("__", floor.ToString() + "ss");
 
-            foreach (string dir in new List<string>(){ "up", "down"}) {
+            foreach (string dir in new List<string>(){ "up", "dn"}) {
                 fSM[floor.ToString() + direction + "s"].Add("_" + dir, floor.ToString() + dir);
             }
 
-            foreach (string dir in new List<string>(){"_", "up", "down"}) {
+            foreach (string dir in new List<string>(){"_", "up", "dn"}) {
                 for (int fl = minv + 1; fl < maxv - 1; fl ++) {
                     fSM[floor.ToString() + direction + "s"].Add(fl.ToString() + dir, floor.ToString() + direction);
                 }
@@ -102,19 +84,19 @@ class Operator {
         for (int floor = 2; floor < maxFloor; floor ++) {
             fSM[floor.ToString() + "ss"].Add("__", floor.ToString() + "ss");
 
-            foreach (string dir in new List<string>(){ "up", "down"}) {
+            foreach (string dir in new List<string>(){ "up", "dn"}) {
                 fSM[floor.ToString() + "ss"].Add("_" + dir, floor.ToString() + dir);
             }
 
-            foreach (string dir in new List<string>(){"_", "up", "down"}) {
+            foreach (string dir in new List<string>(){"_", "up", "dn"}) {
                 for (int fl = 2; fl < floor; fl ++) {
                     fSM[floor.ToString() + "ss"].Add(fl.ToString() + dir, floor.ToString() + "up");
                 }
             }
 
-            foreach (string dir in new List<string>(){"_", "up", "down"}) {
+            foreach (string dir in new List<string>(){"_", "up", "dn"}) {
                 for (int fl = floor; fl > 1; fl --) {
-                    fSM[floor.ToString() + "ss"].Add(fl.ToString() + dir, floor.ToString() + "down");
+                    fSM[floor.ToString() + "ss"].Add(fl.ToString() + dir, floor.ToString() + "dn");
                 }
             }
         }
@@ -122,19 +104,18 @@ class Operator {
     
 
     private void GenerateFSM() {
-        AddMaxMinFloorState(maxFloor, "down");
+        AddMaxMinFloorState(maxFloor, "dn");
         AddMaxMinFloorState(1, "up");
 
         for (int floor = 2; floor < maxFloor; floor ++) {
-            foreach (string dir in new List<string>(){"ss", "up", "down", "ups", "downs"}) {
+            foreach (string dir in new List<string>(){"ss", "up", "dn", "ups", "dns"}) {
                 fSM.Add(floor.ToString() + dir, new Dictionary<string, string>());
             }
         }
 
-        AddUpDownState(1, "down", minusFloor);
-        AddUpDownState(maxFloor, "up", plusFloor);
+        AddUpDownState();
 
-        AddUpDownStillState(1, "down");
+        AddUpDownStillState(1, "dn");
         AddUpDownStillState(maxFloor, "up");
 
         AddStillStillState(maxFloor);
@@ -150,29 +131,49 @@ class Operator {
         return floorsButtons;
     }
 
-    public Dictionary<int, string> GenerateDirections() {
-        Dictionary<int, string> directions = new Dictionary<int, string>();
+    public Dictionary<int, Dictionary<int, string>> GenerateDirections() {
+        Dictionary<int, Dictionary<int, string>> directions = new();
 
-        
+        for (int floor = 1; floor <= maxFloor; floor ++) {
+            for (int fl = 1; fl <= floor; fl ++) {
+                directions[floor][fl] = "dn";
+            }
+            for (int fl = floor + 1; fl <= maxFloor; fl ++) {
+                directions[floor][fl] = "up";
+            }
+        }
 
         return directions;
     }
 
 
     public void Start() {
-        List<(int, int)> operatedCalls = new List<(int, int)>();
-        List<(int, int)> takenCalls = new List<(int, int)>();
-        List<(int, int)> awaitingCalls = new List<(int, int)>();
+        List<(int, int)> operatedCalls = new(); // те вызовы, на которые лифты уже едут
+        List<(int, int)> takenCalls = new List<(int, int)>(); // вызовы, которые лифты уже взяли
+        List<(int, int)> awaitingCalls = new List<(int, int)>(); // просто нажалась кнопка
 
         Dictionary<int, string> floorsButtons = GenerateFloorsButtons();
+        Dictionary<int, Dictionary<int, string>> directions = GenerateDirections();
 
-        while (calls.Count > 0) {
+        IElevatorsCallsManager manager = new CallsManagerClosest();
 
-            awaitingCalls.Add(calls.Dequeue());
+        while (calls.Count > 0 || operatedCalls.Count > 0 || takenCalls.Count > 0 || awaitingCalls.Count > 0) {
+
+            try {
+                floorsButtons[calls.Peek().Item1] = directions[calls.Peek().Item1][calls.Peek().Item2];
+                awaitingCalls.Add(calls.Dequeue());
+            } catch (InvalidOperationException) {}
+
+            manager.ManageCalls(awaitingCalls, operatedCalls, elevators);
 
             foreach (IElevatable elevator in elevators) {
-
+                string curState = elevator.GetState();
+                typeof(ElevatorLogic).GetMethod(curState)?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+                string action = elevator.GetClosestFloor() + floorsButtons[elevator.GetCurrentFloor()];
+                string nextState = fSM[curState][action];
+                elevator.SetState(nextState);
             }
+
             
 
         }

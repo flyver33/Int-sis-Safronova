@@ -10,4 +10,7 @@ public interface IElevatable
     string GetID();
     void RemoveFloor(int floor);
     void AddFloor(int floor);
+    string GetState();
+    void SetState(string nextState);
+    string GetClosestFloor();
 }

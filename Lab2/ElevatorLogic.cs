@@ -4,12 +4,12 @@ namespace Lab2;
 
 class ElevatorLogic() : ILogicable
 {
-    public void down(IElevatable elevator)
+    public void dn(IElevatable elevator)
     {
         elevator.GoDown();
     }
 
-    public void updowns(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, List<(int, int)> takenCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
+    public void updns(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, List<(int, int)> takenCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
         elevator.OpenDoors();
 
@@ -35,22 +35,24 @@ class ElevatorLogic() : ILogicable
         elevator.CloseDoors();
     }
 
-    public void downs(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, List<(int, int)> takenCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
+    public void dns(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, List<(int, int)> takenCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
-        updowns(operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons);
+        updns(operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons);
     }
 
-    public void ss_(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, IElevatable elevator)
-    {
-        operatedCalls.AddRange(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
-        awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
-
-        elevator.AddFloor(1);
+    public void ss(List<(int, int)> operatedCalls, List<(int, int)> takenCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons) {
+        string curButton = floorsButtons[elevator.GetCurrentFloor()];
+        GetType().GetMethod("ss" + curButton)?.Invoke(this, [operatedCalls, takenCalls, awaitingCalls, elevator, floorsButtons]);
     }
 
-    public void ssdownup(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
+    public void ssupdn(List<(int, int)> operatedCalls, List<(int, int)> takenCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
-        throw new NotImplementedException();
+        takenCalls.AddRange(operatedCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
+
+        elevator.OpenDoors();
+        int passengersTaken = operatedCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
+        elevator.CloseDoors();
+        floorsButtons[elevator.GetCurrentFloor()] = "_";
     }
 
     public void up(IElevatable elevator)
@@ -60,6 +62,16 @@ class ElevatorLogic() : ILogicable
 
     public void ups(List<(int, int)> operatedCalls, List<(int, int)> awaitingCalls, List<(int, int)> takenCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
-        updowns(operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons);
+        updns(operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons);
+    }
+
+    public void ssup(List<(int, int)> operatedCalls, List<(int, int)> takenCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
+    {
+        ssupdn(operatedCalls, takenCalls, awaitingCalls, elevator, floorsButtons);
+    }
+
+    public void ssdn(List<(int, int)> operatedCalls, List<(int, int)> takenCalls, List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
+    {
+        ssupdn(operatedCalls, takenCalls, awaitingCalls, elevator, floorsButtons);
     }
 }
