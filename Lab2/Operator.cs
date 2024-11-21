@@ -48,6 +48,12 @@ class MyOperator {
             }
         }
 
+        foreach (string dir in new List<string>(){"_", direction}) {
+            for (int fl = floor; fl < maxFloor; fl ++) {
+                fSM[floor.ToString() + "m"].Add(fl.ToString() + dir, nextFloor.ToString() + direction);
+            }
+        }
+
     }
 
     private void AddUpDownState() {
@@ -59,7 +65,9 @@ class MyOperator {
             }
 
             for (int fl = floor + 1; fl < maxFloor; fl ++) {
-                fSM[floor.ToString() + "up"].Add(fl.ToString() + "_", (floor + 1).ToString() + "up");
+                foreach (string dir in new List<string>(){"_", "dn"}) {
+                    fSM[floor.ToString() + "up"].Add(fl.ToString() + dir, (floor + 1).ToString() + "up");
+                }
                 fSM[floor.ToString() + "up"].Add(fl.ToString() + "up", floor.ToString() + "up" + "s");
             }
         }
@@ -75,7 +83,9 @@ class MyOperator {
             }
 
             for (int fl = 1; fl < floor; fl ++) {
-                fSM[floor.ToString() + "dn"].Add(fl.ToString() + "_", (floor - 1).ToString() + "dn");
+                foreach (string dir in new List<string>(){"_", "up"}) {
+                    fSM[floor.ToString() + "dn"].Add(fl.ToString() + dir, (floor - 1).ToString() + "dn");
+                }
                 fSM[floor.ToString() + "dn"].Add(fl.ToString() + "dn", floor.ToString() + "dn" + "s");
             }
         }
@@ -186,6 +196,26 @@ class MyOperator {
 
         IElevatorsCallsManager manager = new CallsManagerClosest();
 
+        try {
+            floorsButtons[calls.Peek().Item1] = directions[calls.Peek().Item1][calls.Peek().Item2];
+            awaitingCalls.Add(calls.Dequeue());
+        } catch (InvalidOperationException) {}
+
+        manager.ManageCalls(awaitingCalls, operatedCalls, elevators);
+
+        foreach (IElevatable elevator in elevators) {
+            typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+        }
+
+        foreach (IElevatable elevator in elevators) {
+                string curState = elevator.GetState();
+                string action = elevator.GetClosestFloor() + floorsButtons[elevator.GetCurrentFloor()];
+                string nextState = fSM[curState][action];
+                
+                elevator.SetState(nextState);
+
+        }
+
         while (calls.Count > 0 || operatedCalls.Count > 0 || takenCalls.Count > 0 || awaitingCalls.Count > 0) {
 
             try {
@@ -199,11 +229,10 @@ class MyOperator {
                 string curState = elevator.GetState();
                 string action = elevator.GetClosestFloor() + floorsButtons[elevator.GetCurrentFloor()];
                 string nextState = fSM[curState][action];
-                typeof(ElevatorLogic).GetMethod(curState[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+                
                 elevator.SetState(nextState);
+                typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
             }
-
-            
 
         }
 

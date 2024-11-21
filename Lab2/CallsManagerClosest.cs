@@ -15,7 +15,7 @@ class CallsManagerClosest() : IElevatorsCallsManager
                 operatedCalls.Add(call);
                 awaitingCalls.Remove(call);
                 continue;
-            } catch(ArgumentNullException) {}
+            } catch(Exception) {}
 
             try {
                 pickableElevators.AddRange(elevators.FindAll(el => el.GetState()[1..] == "ss" || el.GetState()[1..] == "m"));
