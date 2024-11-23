@@ -8,6 +8,44 @@ class Elevator(int floor, string id, string initState) : IElevatable {
     private readonly string id = id;
     private string state = initState;
     private string direction = "_";
+    private List<(int, int)> operatedCalls = []; // те вызовы, на которые лифты уже едут
+    private List<(int, int)> takenCalls = []; // вызовы, которые лифты уже взяли
+
+    public void AddRangeOperated(List<(int, int)> addingList) {
+        operatedCalls.AddRange(addingList);
+    }
+    public void AddOperated((int, int) addingElement) {
+        operatedCalls.Add(addingElement);
+    }
+
+    public List<(int, int)> FindAllOperated(Predicate<(int, int)> match) {
+        return operatedCalls.FindAll(match);
+    }
+    public int RemoveAllOperated(Predicate<(int, int)> match) {
+        return operatedCalls.RemoveAll(match);
+    }
+
+    public List<(int, int)> GetOperated() {
+        return operatedCalls;
+    }
+
+    public void AddRangeTaken(List<(int, int)> addingList) {
+        takenCalls.AddRange(addingList);
+    }
+    public void AddTaken((int, int) addingElement) {
+        takenCalls.Add(addingElement);
+    }
+
+    public List<(int, int)> FindAllTaken(Predicate<(int, int)> match) {
+        return takenCalls.FindAll(match);
+    }
+    public int RemoveAllTaken(Predicate<(int, int)> match) {
+        return takenCalls.RemoveAll(match);
+    }
+
+    public List<(int, int)> GetTaken() {
+        return takenCalls;
+    }
 
     public void GoDown() {
         currentFloor -= 1;
@@ -29,8 +67,6 @@ class Elevator(int floor, string id, string initState) : IElevatable {
     public void CloseDoors() {
 
         Console.WriteLine("Elevator " + id + " has closed doors on " + currentFloor.ToString() + " floor");
-
-        SetDirNo();
 
     }
 
@@ -90,7 +126,7 @@ class Elevator(int floor, string id, string initState) : IElevatable {
         try {
             return sortedFloors[direction].MinBy(x => Math.Abs((long) x - currentFloor)).ToString();
         }
-        catch(Exception) {
+        catch(InvalidOperationException) {
             return "_";
         }
         
@@ -103,8 +139,8 @@ class Elevator(int floor, string id, string initState) : IElevatable {
         try {
             return sortedFloors[direction].MaxBy(x => Math.Abs((long) x - currentFloor));
         }
-        catch(Exception) {
-            return null;
+        catch(InvalidOperationException) {
+            throw;
         }
         
     }

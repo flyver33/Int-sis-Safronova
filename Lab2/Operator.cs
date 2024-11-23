@@ -185,10 +185,19 @@ class MyOperator {
         return directions;
     }
 
+    private bool getCalls() {
+        bool calls = false;
+
+        foreach(IElevatable elevator in elevators) {
+            calls = calls || elevator.GetOperated().Count > 0;
+            calls = calls || elevator.GetTaken().Count > 0;
+        }
+
+        return calls;
+    }
+
 
     public void Start() {
-        List<(int, int)> operatedCalls = new(); // те вызовы, на которые лифты уже едут
-        List<(int, int)> takenCalls = new List<(int, int)>(); // вызовы, которые лифты уже взяли
         List<(int, int)> awaitingCalls = new List<(int, int)>(); // просто нажалась кнопка
 
         Dictionary<int, string> floorsButtons = GenerateFloorsButtons();
@@ -201,10 +210,10 @@ class MyOperator {
             awaitingCalls.Add(calls.Dequeue());
         } catch (InvalidOperationException) {}
 
-        manager.ManageCalls(awaitingCalls, operatedCalls, elevators);
+        manager.ManageCalls(awaitingCalls, elevators);
 
         foreach (IElevatable elevator in elevators) {
-            typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+            typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [awaitingCalls, elevator, floorsButtons]);
         }
 
         foreach (IElevatable elevator in elevators) {
@@ -216,14 +225,14 @@ class MyOperator {
 
         }
 
-        while (calls.Count > 0 || operatedCalls.Count > 0 || takenCalls.Count > 0 || awaitingCalls.Count > 0) {
+        while (calls.Count > 0 || getCalls() || awaitingCalls.Count > 0) {
 
             try {
                 floorsButtons[calls.Peek().Item1] = directions[calls.Peek().Item1][calls.Peek().Item2];
                 awaitingCalls.Add(calls.Dequeue());
             } catch (InvalidOperationException) {}
 
-            manager.ManageCalls(awaitingCalls, operatedCalls, elevators);
+            manager.ManageCalls(awaitingCalls, elevators);
 
             foreach (IElevatable elevator in elevators) {
                 string curState = elevator.GetState();
@@ -231,7 +240,7 @@ class MyOperator {
                 string nextState = fSM[curState][action];
                 
                 elevator.SetState(nextState);
-                typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [operatedCalls, awaitingCalls, takenCalls, elevator, floorsButtons]);
+                typeof(ElevatorLogic).GetMethod(elevator.GetState()[1..])?.Invoke(logic, [awaitingCalls, elevator, floorsButtons]);
             }
 
         }
