@@ -7,5 +7,5 @@ public interface ILogicable
     void ups(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons);
     void dns(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons);
     void ss(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons);
-    void m(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons);
+    void ms(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons);
 }

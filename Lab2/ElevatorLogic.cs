@@ -54,13 +54,19 @@ class ElevatorLogic() : ILogicable
     public void ssupdn(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
         elevator.AddRangeTaken(elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()));
+        elevator.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
 
         foreach((int, int) floors in elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor())) {
             elevator.AddFloor(floors.Item2);
         }
 
+        foreach((int, int) floors in awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor())) {
+            elevator.AddFloor(floors.Item2);
+        }
+
         elevator.OpenDoors();
         int passengersTaken = elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());
+        passengersTaken += awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
         Console.WriteLine("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
 
         int passengersDroppedOff = elevator.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor());
@@ -94,7 +100,8 @@ class ElevatorLogic() : ILogicable
         dn(awaitingCalls, elevator, floorsButtons);
     }
 
-    public void m(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons) {
-        ss(awaitingCalls, elevator, floorsButtons);
+    public void ms(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons) {
+        GetType().GetMethod(elevator.GetDir())?.Invoke(this, [awaitingCalls, elevator, floorsButtons]);
+        GetType().GetMethod(elevator.GetDir() + "s")?.Invoke(this, [awaitingCalls, elevator, floorsButtons]);
     }
 }

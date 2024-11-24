@@ -11,6 +11,10 @@ class Elevator(int floor, string id, string initState) : IElevatable {
     private List<(int, int)> operatedCalls = []; // те вызовы, на которые лифты уже едут
     private List<(int, int)> takenCalls = []; // вызовы, которые лифты уже взяли
 
+    public string GetDir() {
+        return direction;
+    }
+
     public void AddRangeOperated(List<(int, int)> addingList) {
         operatedCalls.AddRange(addingList);
     }

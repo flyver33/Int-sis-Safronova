@@ -25,4 +25,7 @@ public interface IElevatable
     List<(int, int)> FindAllTaken(Predicate<(int, int)> match);
     int RemoveAllTaken(Predicate<(int, int)> match);
     List<(int, int)> GetTaken();
+    HashSet<int> GetFloors();
+    string GetDir();
+    int GetActionsCount();
 }
