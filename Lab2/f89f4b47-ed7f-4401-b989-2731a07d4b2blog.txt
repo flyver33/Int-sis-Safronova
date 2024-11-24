@@ -1,0 +1,165 @@
+Lab2 Information: 0 : Elevator 1 has opened doors on 1 floor
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 1 floor
+Lab2 Information: 0 : Elevator 1 is going up on 2 floor
+Lab2 Information: 0 : Elevator 1 is going up on 3 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 3 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 3 floor
+Lab2 Information: 0 : Elevator 2 is going down on 8 floor
+Lab2 Information: 0 : Elevator 1 is going up on 4 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 8 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 8 floor
+Lab2 Information: 0 : Elevator 1 is going up on 5 floor
+Lab2 Information: 0 : Elevator 2 is going down on 7 floor
+Lab2 Information: 0 : Elevator 1 is going up on 6 floor
+Lab2 Information: 0 : Elevator 2 is going down on 6 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 6 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 6 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 6 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 6 floor
+Lab2 Information: 0 : Elevator 1 is going up on 7 floor
+Lab2 Information: 0 : Elevator 2 is going down on 5 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 7 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 7 floor
+Lab2 Information: 0 : Elevator 2 is going down on 4 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 4 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 4 floor
+Lab2 Information: 0 : Elevator 1 is going down on 6 floor
+Lab2 Information: 0 : Elevator 2 is going down on 3 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 6 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 6 floor
+Lab2 Information: 0 : Elevator 2 is going down on 2 floor
+Lab2 Information: 0 : Elevator 1 is going down on 5 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 2 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 2 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 2 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 5 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 5 floor
+Lab2 Information: 0 : Elevator 2 is going down on 1 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 1 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 2 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 1 floor
+Lab2 Information: 0 : Elevator 1 is going down on 4 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 4 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 4 floor
+Lab2 Information: 0 : Elevator 2 is going up on 2 floor
+Lab2 Information: 0 : Elevator 1 is going down on 3 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 2 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 2 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 3 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 3 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 2 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 2 floor
+Lab2 Information: 0 : Elevator 1 is going down on 2 floor
+Lab2 Information: 0 : Elevator 2 is going up on 3 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 2 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 2 floor
+Lab2 Information: 0 : Elevator 2 is going up on 4 floor
+Lab2 Information: 0 : Elevator 1 is going down on 1 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 1 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 1 floor
+Lab2 Information: 0 : Elevator 2 is going up on 5 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 5 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 5 floor
+Lab2 Information: 0 : Elevator 1 is going up on 2 floor
+Lab2 Information: 0 : Elevator 2 is going up on 6 floor
+Lab2 Information: 0 : Elevator 1 is going up on 3 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 6 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 6 floor
+Lab2 Information: 0 : Elevator 1 is going up on 4 floor
+Lab2 Information: 0 : Elevator 2 is going up on 7 floor
+Lab2 Information: 0 : Elevator 1 is going up on 5 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 7 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 0 passengers
+Lab2 Information: 0 : Elevator 2 has taken 2 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 7 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 5 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 5 floor
+Lab2 Information: 0 : Elevator 2 is going up on 8 floor
+Lab2 Information: 0 : Elevator 1 is going up on 6 floor
+Lab2 Information: 0 : Elevator 2 is going up on 9 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 9 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 1 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 9 floor
+Lab2 Information: 0 : Elevator 1 is going up on 7 floor
+Lab2 Information: 0 : Elevator 1 is going up on 8 floor
+Lab2 Information: 0 : Elevator 2 is going down on 8 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 8 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 1 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 8 floor
+Lab2 Information: 0 : Elevator 2 is going down on 7 floor
+Lab2 Information: 0 : Elevator 1 is going up on 9 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 9 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 9 floor
+Lab2 Information: 0 : Elevator 2 is going down on 6 floor
+Lab2 Information: 0 : Elevator 2 is going down on 5 floor
+Lab2 Information: 0 : Elevator 1 is going down on 8 floor
+Lab2 Information: 0 : Elevator 2 is going down on 4 floor
+Lab2 Information: 0 : Elevator 1 is going down on 7 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 4 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 4 floor
+Lab2 Information: 0 : Elevator 1 is going down on 6 floor
+Lab2 Information: 0 : Elevator 2 is going down on 3 floor
+Lab2 Information: 0 : Elevator 1 has opened doors on 6 floor
+Lab2 Information: 0 : Elevator 1 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 1 has taken 0 passengers
+Lab2 Information: 0 : Elevator 1 has closed doors on 6 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 3 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 3 floor
+Lab2 Information: 0 : Elevator 2 is going down on 2 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 2 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 2 floor
+Lab2 Information: 0 : Elevator 2 is going down on 1 floor
+Lab2 Information: 0 : Elevator 2 has opened doors on 1 floor
+Lab2 Information: 0 : Elevator 2 has dropped off 1 passengers
+Lab2 Information: 0 : Elevator 2 has taken 0 passengers
+Lab2 Information: 0 : Elevator 2 has closed doors on 1 floor
+Lab2 Information: 0 : 23
+Lab2 Information: 0 : 24
