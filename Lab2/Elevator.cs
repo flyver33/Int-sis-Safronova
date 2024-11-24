@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Lab2;
 
 class Elevator(int floor, string id, string initState) : IElevatable {
@@ -56,7 +58,7 @@ class Elevator(int floor, string id, string initState) : IElevatable {
 
         actionsCount +=1;
 
-        Console.WriteLine("Elevator " + id + " is going down on " + currentFloor.ToString() + " floor");
+        Trace.TraceInformation("Elevator " + id + " is going down on " + currentFloor.ToString() + " floor");
 
         SetDirDn();
 
@@ -64,13 +66,13 @@ class Elevator(int floor, string id, string initState) : IElevatable {
 
     public void OpenDoors() {
 
-        Console.WriteLine("Elevator " + id + " has opened doors on " + currentFloor.ToString() + " floor");
+        Trace.TraceInformation("Elevator " + id + " has opened doors on " + currentFloor.ToString() + " floor");
 
     }
 
     public void CloseDoors() {
 
-        Console.WriteLine("Elevator " + id + " has closed doors on " + currentFloor.ToString() + " floor");
+        Trace.TraceInformation("Elevator " + id + " has closed doors on " + currentFloor.ToString() + " floor");
 
     }
 
@@ -79,7 +81,7 @@ class Elevator(int floor, string id, string initState) : IElevatable {
 
         actionsCount +=1;
 
-        Console.WriteLine("Elevator " + id + " is going up on " + currentFloor.ToString() + " floor");
+        Trace.TraceInformation("Elevator " + id + " is going up on " + currentFloor.ToString() + " floor");
 
         SetDirUp();
 

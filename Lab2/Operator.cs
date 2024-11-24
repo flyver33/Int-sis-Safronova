@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Lab2;
@@ -33,7 +34,6 @@ class MyOperator {
         }
 
         GenerateFSM();
-        Start();
 
     }
 
@@ -303,7 +303,7 @@ class MyOperator {
         }
 
         foreach (IElevatable elevator in elevators) {
-            Console.WriteLine(elevator.GetActionsCount());
+            Trace.TraceInformation(elevator.GetActionsCount().ToString());
         }
 
     }

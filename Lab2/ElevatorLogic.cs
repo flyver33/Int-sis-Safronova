@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Lab2;
@@ -29,8 +30,8 @@ class ElevatorLogic() : ILogicable
 
         int passengersDroppedOff = elevator.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor());
 
-        Console.WriteLine("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
-        Console.WriteLine("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
+        Trace.TraceInformation("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
+        Trace.TraceInformation("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
 
         elevator.RemoveFloor(elevator.GetCurrentFloor());
 
@@ -67,10 +68,10 @@ class ElevatorLogic() : ILogicable
         elevator.OpenDoors();
         int passengersTaken = elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());
         passengersTaken += awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
-        Console.WriteLine("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
+        Trace.TraceInformation("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
 
         int passengersDroppedOff = elevator.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor());
-        Console.WriteLine("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
+        Trace.TraceInformation("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
 
         elevator.RemoveFloor(elevator.GetCurrentFloor());
 
