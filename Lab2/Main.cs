@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 class Lab2{
     public static void Main(string[] args) {
-        IEnumerable<String> input_lines = File.ReadLines("C:\\dev\\Int-sis\\Lab2\\input.txt");
+        IEnumerable<String> input_lines = File.ReadLines(args[0]);
         
         int maxFloor = Convert.ToInt32(input_lines.ElementAt(0));
 
@@ -20,9 +20,9 @@ class Lab2{
             calls.Enqueue((Convert.ToInt32(curCall[0]), Convert.ToInt32(curCall[1])));
         }
 
-        Trace.Listeners.Add(new TextWriterTraceListener("C:\\dev\\Int-sis\\Lab2\\TextWriterOutput.log"));
+        Trace.Listeners.Add(new TextWriterTraceListener());
 
-        MyOperator myoperator = new MyOperator(maxFloor, currentFloors, calls, 2);
+        MyOperator myoperator = new(maxFloor, currentFloors, calls, 2);
 
         myoperator.Start();
 

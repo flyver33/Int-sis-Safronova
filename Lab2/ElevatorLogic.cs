@@ -5,6 +5,7 @@ namespace Lab2;
 
 class ElevatorLogic() : ILogicable
 {
+    private TakenCallsManager callsManager = new();
     public void dn(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
         elevator.GoDown();
@@ -14,21 +15,21 @@ class ElevatorLogic() : ILogicable
     {
         elevator.OpenDoors();
 
-        elevator.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
-        elevator.AddRangeTaken(elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()));
+        callsManager.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()), elevator.GetTaken());
+        callsManager.AddRangeTaken(callsManager.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated()), elevator.GetTaken());
 
         awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
         });
 
-        elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
+        callsManager.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
         });
         
         int passengersTaken = awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
-        passengersTaken += elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());
+        passengersTaken += callsManager.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated());
 
-        int passengersDroppedOff = elevator.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor());
+        int passengersDroppedOff = callsManager.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor(), elevator.GetTaken());
 
         Trace.TraceInformation("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
         Trace.TraceInformation("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
@@ -54,10 +55,10 @@ class ElevatorLogic() : ILogicable
 
     public void ssupdn(List<(int, int)> awaitingCalls, IElevatable elevator, Dictionary<int, string> floorsButtons)
     {
-        elevator.AddRangeTaken(elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()));
-        elevator.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
+        callsManager.AddRangeTaken(callsManager.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated()), elevator.GetTaken());
+        callsManager.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()), elevator.GetTaken());
 
-        elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
+        callsManager.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
         });
 
@@ -66,11 +67,11 @@ class ElevatorLogic() : ILogicable
         });
 
         elevator.OpenDoors();
-        int passengersTaken = elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());
+        int passengersTaken = callsManager.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor(), elevator.GetOperated());
         passengersTaken += awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
         Trace.TraceInformation("Elevator " + elevator.GetID() + " has taken " + passengersTaken + " passengers");
 
-        int passengersDroppedOff = elevator.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor());
+        int passengersDroppedOff = callsManager.RemoveAllTaken(x => x.Item2 == elevator.GetCurrentFloor(), elevator.GetTaken());
         Trace.TraceInformation("Elevator " + elevator.GetID() + " has dropped off " + passengersDroppedOff + " passengers");
 
         elevator.RemoveFloor(elevator.GetCurrentFloor());
