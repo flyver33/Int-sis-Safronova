@@ -4,10 +4,9 @@ class CallsManagerClosest() : IElevatorsCallsManager
 {
     public void ManageCalls(List<(int, int)> awaitingCalls, List<IElevatable> elevators, Dictionary<int, string> floorsButtons) {
 
-        (int, int)[] copyAwaitingCalls = new (int, int)[awaitingCalls.Count];
-        awaitingCalls.CopyTo(copyAwaitingCalls);
+        List<(int, int)> copyAwaitingCalls = [.. awaitingCalls];
 
-        foreach((int, int) call in copyAwaitingCalls) {
+        copyAwaitingCalls.ForEach(call => {
             List<IElevatable> pickableElevators = new();
 
             try {
@@ -16,7 +15,7 @@ class CallsManagerClosest() : IElevatorsCallsManager
                 pickableElevators[0].AddOperated(call);
                 pickableElevators[0].AddFloor(call.Item1);
                 awaitingCalls.Remove(call);
-                continue;
+                return;
             } catch (Exception e) when (e is InvalidOperationException || e is ArgumentOutOfRangeException) {}
 
             try {
@@ -24,14 +23,14 @@ class CallsManagerClosest() : IElevatorsCallsManager
                 pickableElevators[0].AddFloor(call.Item2);
                 pickableElevators[0].AddTaken(call);
                 awaitingCalls.Remove(call);
-                continue;
+                return;
 
             } catch(ArgumentOutOfRangeException) {}
 
             try {
                 pickableElevators.AddRange(elevators.FindAll(el => el.GetState()[1..] == "ss" || el.GetState()[1..] == "ms"));
                 
-            } catch(ArgumentNullException) {continue;}
+            } catch(ArgumentNullException) {return;}
 
             try {
                 pickableElevators.Sort((el1, el2) => Math.Abs((long) el1.GetCurrentFloor() - call.Item1).CompareTo(Math.Abs((long) el2.GetCurrentFloor() - call.Item1)));
@@ -41,7 +40,7 @@ class CallsManagerClosest() : IElevatorsCallsManager
                 
             } catch (ArgumentOutOfRangeException) {}
 
-        }
+        });
     }
 
 }

@@ -17,13 +17,13 @@ class ElevatorLogic() : ILogicable
         elevator.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
         elevator.AddRangeTaken(elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()));
 
-        foreach((int, int) floors in awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor())) {
+        awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
-        }
+        });
 
-        foreach((int, int) floors in elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor())) {
+        elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
-        }
+        });
         
         int passengersTaken = awaitingCalls.RemoveAll(x => x.Item1 == elevator.GetCurrentFloor());
         passengersTaken += elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());
@@ -57,13 +57,13 @@ class ElevatorLogic() : ILogicable
         elevator.AddRangeTaken(elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()));
         elevator.AddRangeTaken(awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()));
 
-        foreach((int, int) floors in elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor())) {
+        elevator.FindAllOperated(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
-        }
+        });
 
-        foreach((int, int) floors in awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor())) {
+        awaitingCalls.FindAll(x => x.Item1 == elevator.GetCurrentFloor()).ForEach(floors => {
             elevator.AddFloor(floors.Item2);
-        }
+        });
 
         elevator.OpenDoors();
         int passengersTaken = elevator.RemoveAllOperated(x => x.Item1 == elevator.GetCurrentFloor());

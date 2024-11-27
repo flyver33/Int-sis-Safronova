@@ -20,7 +20,6 @@ class Lab2{
             calls.Enqueue((Convert.ToInt32(curCall[0]), Convert.ToInt32(curCall[1])));
         }
 
-        // File.Create("C:\\dev\\Int-sis\\Lab2\\TextWriterOutput.log");
         Trace.Listeners.Add(new TextWriterTraceListener("C:\\dev\\Int-sis\\Lab2\\TextWriterOutput.log"));
 
         MyOperator myoperator = new MyOperator(maxFloor, currentFloors, calls, 2);
