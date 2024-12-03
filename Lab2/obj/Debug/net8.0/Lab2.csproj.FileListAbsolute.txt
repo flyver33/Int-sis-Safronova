@@ -1,0 +1,15 @@
+c:\dev\Int-sis\Lab2\bin\Debug\net8.0\Lab2.exe
+c:\dev\Int-sis\Lab2\bin\Debug\net8.0\Lab2.deps.json
+c:\dev\Int-sis\Lab2\bin\Debug\net8.0\Lab2.runtimeconfig.json
+c:\dev\Int-sis\Lab2\bin\Debug\net8.0\Lab2.dll
+c:\dev\Int-sis\Lab2\bin\Debug\net8.0\Lab2.pdb
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.GeneratedMSBuildEditorConfig.editorconfig
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.AssemblyInfoInputs.cache
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.AssemblyInfo.cs
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.csproj.CoreCompileInputs.cache
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.sourcelink.json
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.dll
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\refint\Lab2.dll
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.pdb
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\Lab2.genruntimeconfig.cache
+c:\dev\Int-sis\Lab2\obj\Debug\net8.0\ref\Lab2.dll
