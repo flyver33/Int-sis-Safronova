@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\dev\\Int-sis\\LL1\\LL1.csproj": {}
+    "C:\\dev\\Int-sis\\LL1\\LL1.csproj": {}
   },
   "projects": {
-    "c:\\dev\\Int-sis\\LL1\\LL1.csproj": {
+    "C:\\dev\\Int-sis\\LL1\\LL1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\dev\\Int-sis\\LL1\\LL1.csproj",
+        "projectUniqueName": "C:\\dev\\Int-sis\\LL1\\LL1.csproj",
         "projectName": "LL1",
-        "projectPath": "c:\\dev\\Int-sis\\LL1\\LL1.csproj",
+        "projectPath": "C:\\dev\\Int-sis\\LL1\\LL1.csproj",
         "packagesPath": "C:\\Users\\Людмила\\.nuget\\packages\\",
-        "outputPath": "c:\\dev\\Int-sis\\LL1\\obj\\",
+        "outputPath": "C:\\dev\\Int-sis\\LL1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Людмила\\AppData\\Roaming\\NuGet\\NuGet.Config"
