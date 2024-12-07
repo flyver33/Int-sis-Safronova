@@ -3,7 +3,10 @@ public class States {
 
     public States(Lexer lexer, Dictionary<int, int?> nextStates, Stack<int?> stack, StateSymbols stateSymbols) {
         states  = new() {
+            {1, new State4(1, lexer, nextStates[1])},
             {20, new State4(20, lexer, nextStates[20])},
+            {30, new State6(30, stateSymbols, lexer, nextStates[30])},
+            {31, new State4(31, lexer, nextStates[31])},
             {120, new State6(120, stateSymbols, lexer, nextStates[120])},
             {121, new State6(121, stateSymbols, lexer, nextStates[121])},
             {122, new State4(122, lexer, nextStates[122])},
@@ -37,11 +40,10 @@ public class States {
             {432, new State6(432, stateSymbols, lexer, nextStates[432])},
             {433, new State4(433, lexer, nextStates[433])},
             {10, new State1(10, lexer, stack, nextStates[10])},
-            {11, new State1(11, lexer, stack, nextStates[11])},
-            {12, new State4(12, lexer, nextStates[12])},
+            {11, new State4(11, lexer, nextStates[11])},
             {200, new State1(200, lexer, stack, nextStates[200])},
             {201, new State4(201, lexer, nextStates[201])},
-            {300, new State6(300, stateSymbols, lexer, nextStates[300])},
+            {300, new State5(300, lexer, nextStates[300])},
             {301, new State5(301, lexer, nextStates[301])},
             {302, new State5(302, lexer, nextStates[302])},
             {303, new State1(303, lexer, stack, nextStates[303])},
@@ -49,8 +51,6 @@ public class States {
             {305, new State5(305, lexer, nextStates[305])},
             {306, new State3(306, lexer, stack)},
             {310, new State2(310, lexer, stack)},
-            {400, new State3(400, lexer, stack)},
-            {410, new State2(410, lexer, stack)},
             {1200, new State5(1200, lexer, nextStates[1200])},
             {1201, new State1(1201, lexer, stack, nextStates[1201])},
             {1202, new State4(1202, lexer, nextStates[1202])},

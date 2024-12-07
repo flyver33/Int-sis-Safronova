@@ -1,26 +1,43 @@
-﻿public static class LL1 {
+﻿
+public static class LL1 {
     public static void Main(string[] args) {
-        string a = "( 1 + 3 ) * 2 + abc + ( 1 * 2 + 3 )";
+
+        string pathToCase = "C:\\dev\\Int-sis\\LL1\\testCases\\positiveCase.txt";
+        string Case = File.ReadAllText(pathToCase);
+
+        string pathToTsv = "C:\\dev\\Int-sis\\LL1\\data\\LL1_data.tsv";
+
+        TsvReader reader = new TsvReader();
+
+        Dictionary<int, int?> nextStatesRead;
+        Dictionary<int, List<string>> stateSymbolsRead;
+
+        (nextStatesRead, stateSymbolsRead) = reader.Read(pathToTsv);
+
+        StateSymbols stateSymbols = new(stateSymbolsRead);
+        NextStates nextStates = new(nextStatesRead);
 
         Stack<int?> stack = new();
         stack.Push(null);
 
-        StateSymbols stateSymbols = new();
-        NextStates nextStates = new();
-
-        LexerLL1 lexer = new LexerLL1(a, stateSymbols.GetDict());
+        LexerLL1 lexer = new LexerLL1(Case, stateSymbols.GetDict());
         lexer.SplitLine();
 
         States statesClass = new(lexer, nextStates.GetDict(), stack, stateSymbols);
         Dictionary<int, State> states = statesClass.GetDict();
 
-        int? curNumber = 10;
+        int? curNumber = 1;
 
-        while (curNumber != null) {
-            State curState = states[curNumber.GetValueOrDefault()];
-            curNumber = curState.Next();
+        try {
+            while (curNumber != null) {
+                    State curState = states[curNumber.GetValueOrDefault()];
+                    curNumber = curState.Next();
+            }
+
+            Console.WriteLine("Выражение относится к этой грамматике");
+
+        } catch (NullReferenceException) {
+            Console.WriteLine("Выражение не относится к этой грамматике");
         }
-
-        Console.WriteLine("Выражение относится к этой грамматике");
     }
 }

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 public class LexerLL1 : Lexer {
 
     string line;
-    List<string> statement = new();
+    public List<string> statement = new();
     int curElement = 0;
     Dictionary<int, List<string>> stateSymbols;
 
@@ -13,12 +13,8 @@ public class LexerLL1 : Lexer {
 
     }
     public void Error(int stateNumber) {
-        // try {
-            stateSymbols[stateNumber].Find(s => s == statement[curElement]);
-        // } catch (ArgumentNullException e) {
-        //     Console.WriteLine("Выражение не относится к этой грамматике");
-        //     throw e;
-        // }
+        string? match = stateSymbols[stateNumber].Find(s => s == statement[curElement]);
+        int l = match.Length;
 
     }
     public void Accept() {
@@ -29,21 +25,30 @@ public class LexerLL1 : Lexer {
         List<string> lines = lineWithEnd.Split().ToList();
 
         Regex regexDigits = new Regex("^\\d+$");
-        Regex regexID = new Regex("^[A-Za-z|_][\\w|_]*");
+        Regex regexID = new Regex("^[A-Za-z_][\\w_]*$");
         Regex regexBoolean = new Regex("^true$|^false$");
-        Regex symbols = new Regex("\\+|\\-|\\/|\\*|\\(|\\)|#");
+        Regex regexFunc = new Regex("^func$");
 
         lines.ForEach(s => {
             string replacement;
+
+            // Console.WriteLine(s);
             
             replacement = regexBoolean.Replace(s, "1Boolean");
+            replacement = regexFunc.Replace(replacement, "1Func");
             replacement = regexID.Replace(replacement, "ID");
             replacement = regexDigits.Replace(replacement, "Digit");
-            replacement = symbols.Replace(replacement, s);
+
+            // Console.WriteLine(replacement);
 
             statement.Add(replacement);
 
         });
+
+        // statement.ForEach(s => {
+        //     Console.WriteLine(s);
+        // });
+        
     }
 
     public string GetCurEl() {
