@@ -1,0 +1,21 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build c:\\dev\\Int-sis\\Lab2\\Lab2.csproj",
+            "program": "${workspaceFolder}/Lab2/bin/Debug/net8.0/Lab2.dll",
+            "args": ["${workspaceFolder}\\Lab2\\input.txt"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+
+
+    ]
+}
