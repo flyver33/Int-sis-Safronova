@@ -1,0 +1,15 @@
+c:\dev\Int-sis\LR1\bin\Debug\net8.0\LR1.exe
+c:\dev\Int-sis\LR1\bin\Debug\net8.0\LR1.deps.json
+c:\dev\Int-sis\LR1\bin\Debug\net8.0\LR1.runtimeconfig.json
+c:\dev\Int-sis\LR1\bin\Debug\net8.0\LR1.dll
+c:\dev\Int-sis\LR1\bin\Debug\net8.0\LR1.pdb
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.GeneratedMSBuildEditorConfig.editorconfig
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.AssemblyInfoInputs.cache
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.AssemblyInfo.cs
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.csproj.CoreCompileInputs.cache
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.sourcelink.json
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.dll
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\refint\LR1.dll
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.pdb
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\LR1.genruntimeconfig.cache
+c:\dev\Int-sis\LR1\obj\Debug\net8.0\ref\LR1.dll
