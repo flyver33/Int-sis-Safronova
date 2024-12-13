@@ -1,6 +1,35 @@
+F -> SF S
 S -> Sl SpSl
+SF -> func ID ( Arg SpArg ) :
+SF -> ''
 SpSl -> + Sl SpSl
 SpSl -> - Sl SpSl
 SpSl -> ''
-Sl -> ID
-Sl -> Digit
+Sl -> Mn SpMn
+SpMn -> * Mn SpMn
+SpMn -> / Mn SpMn
+SpMn -> ''
+Mn -> LogSl SpLogSl
+SpLogSl -> | LogSl SpLogSl
+SpLogSl -> ''
+LogSl -> LogMn SpLogMn
+SpLogMn -> & LogMn SpLogMn
+SpLogMn -> ''
+LogMn -> ! LogMn
+LogMn -> Pr SpPr
+SpPr -> <= Pr SpPr
+SpPr -> >= Pr SpPr
+SpPr -> < Pr SpPr
+SpPr -> > Pr SpPr
+SpPr -> == Pr SpPr
+SpPr -> != Pr SpPr
+SpPr -> ''
+Pr -> ID
+Pr -> Boolean
+Pr -> Digit
+Pr -> ( S )
+SpArg -> , Arg SpArg
+SpArg -> ''
+Arg -> ID
+Arg -> Digit
+Arg -> Boolean

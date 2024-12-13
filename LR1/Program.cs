@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string pathToCase = "C:\\dev\\Int-sis\\LR1\\testCases\\positiveCase.txt";
+        string pathToCase = "C:\\dev\\Int-sis\\LR1\\testCases\\negativeCase3.txt";
         string Case = File.ReadAllText(pathToCase);
         
         string pathToTsv = "C:\\dev\\Int-sis\\LR1\\data\\LR1.tsv";
