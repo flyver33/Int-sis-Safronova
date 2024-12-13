@@ -1,0 +1,6 @@
+S -> Sl SpSl
+SpSl -> + Sl SpSl
+SpSl -> - Sl SpSl
+SpSl -> ''
+Sl -> ID
+Sl -> Digit
